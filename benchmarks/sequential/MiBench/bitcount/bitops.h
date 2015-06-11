@@ -18,7 +18,7 @@
 
 #include "sniptype.h"                           /* For TOBOOL()         */
 
-typedef unsigned int size_t;
+// typedef unsigned int size_t;
 
 /*
 **  Macros to manipulate bits in any integral data type.

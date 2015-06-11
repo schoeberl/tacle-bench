@@ -7,8 +7,11 @@
 */
 
 #include "bitops.h"
+#include <stdio.h>
+#include <machine/spm.h>
 
 #define FUNCS  8
+//#define CYCCNT ( *( ( volatile _IODEV unsigned * ) 0xf0020004))
 
 static int bit_shifter(long int x)
 {
@@ -49,6 +52,10 @@ int main( void )
   unsigned long n = 0;
   unsigned int iterations = 10;
 
+volatile _SPM int *cyc_ptr = (volatile _SPM int *) 0xF0020004;
+
+  int start = *cyc_ptr;
+
   _Pragma( "loopbound min 8 max 8" )
   for (i = 0; i < FUNCS; i++) {
     _Pragma( "loopbound min 10 max 10" )
@@ -78,5 +85,9 @@ int main( void )
   }
   _Pragma( "flowrestriction 1*ntbl_bitcnt <= 8*call_ntbl" )
   _Pragma( "flowrestriction 1*btbl_bitcnt <= 4*call_btbl" )
+
+  int end = *cyc_ptr;
+printf("%d %d %d\n", start, end, end-start);
+
   return 0;
 }
