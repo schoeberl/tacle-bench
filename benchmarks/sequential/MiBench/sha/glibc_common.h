@@ -4,7 +4,7 @@
 #define LITTLE_ENDIAN
 #define NULL ((void*)0)
 
-typedef unsigned size_t;
+typedef unsigned long size_t;
 
 /* Type to use for unaligned operations. */
 typedef unsigned char byte;

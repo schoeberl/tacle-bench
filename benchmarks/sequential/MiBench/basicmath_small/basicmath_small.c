@@ -1,8 +1,17 @@
+#include <stdio.h>
 #include "wcclibm.h"
 #include "snipmath.h"
+#include <machine/spm.h>
 
 int main(void)
 {
+volatile _SPM unsigned int *cyc_ptr_low = (volatile _SPM unsigned int *) 0xF0020004;
+volatile _SPM unsigned int *cyc_ptr_high = (volatile _SPM unsigned int *) 0xF0020000;
+
+  unsigned long long cyc_ptr_low_saved = (unsigned long long)*cyc_ptr_low;
+  unsigned long long cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
+
+  unsigned long long start = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
   double  a1 = 1.0f, b1 = -10.5f, c1 = 32.0f, d1 = -30.0f;
   double  a2 = 1.0f, b2 = -4.5f, c2 = 17.0f, d2 = -30.0f;
   double  a3 = 1.0f, b3 = -3.5f, c3 = 22.0f, d3 = -31.0f;
@@ -59,6 +68,12 @@ int main(void)
   for (X = 0.0f; X <= (2 * PI + 1e-6f); X += (PI / 180)) {
     rad2deg(X);
   }
+
+  cyc_ptr_low_saved = (unsigned long long)*cyc_ptr_low;
+  cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
+
+  unsigned long long end = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
+printf("%llu %llu %llu\n", start, end, end-start);
 
   return 0;
 }

@@ -52,9 +52,13 @@ int main( void )
   unsigned long n = 0;
   unsigned int iterations = 10;
 
-volatile _SPM int *cyc_ptr = (volatile _SPM int *) 0xF0020004;
+volatile _SPM unsigned int *cyc_ptr_low = (volatile _SPM unsigned int *) 0xF0020004;
+volatile _SPM unsigned int *cyc_ptr_high = (volatile _SPM unsigned int *) 0xF0020000;
 
-  int start = *cyc_ptr;
+  unsigned long long cyc_ptr_low_saved = (unsigned long long)*cyc_ptr_low;
+  unsigned long long cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
+
+  unsigned long long start = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
 
   _Pragma( "loopbound min 8 max 8" )
   for (i = 0; i < FUNCS; i++) {
@@ -86,8 +90,11 @@ volatile _SPM int *cyc_ptr = (volatile _SPM int *) 0xF0020004;
   _Pragma( "flowrestriction 1*ntbl_bitcnt <= 8*call_ntbl" )
   _Pragma( "flowrestriction 1*btbl_bitcnt <= 4*call_btbl" )
 
-  int end = *cyc_ptr;
-printf("%d %d %d\n", start, end, end-start);
+  cyc_ptr_low_saved = (unsigned long long)*cyc_ptr_low;
+  cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
+
+  unsigned long long end = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
+printf("%llu %llu %llu\n", start, end, end-start);
 
   return 0;
 }

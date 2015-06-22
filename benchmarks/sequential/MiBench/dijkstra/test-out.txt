@@ -1,0 +1,9 @@
+#pasim a.out
+patmos-emulator-2kbdmapwb dijkstra.elf
+4800 64547270 64542470
+../../../../../patmos/hardware/build/emulator dijkstra.elf optimised
+4782 64547231 64542449
+non-optimised
+4803 64547252 64542449
+original scache + 2kb wb data cache
+4817 64547260 64542443

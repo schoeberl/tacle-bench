@@ -269,6 +269,8 @@
 
 \**********************************************************************/
 
+#include <machine/spm.h>
+#include <stdio.h>
 #include "wcclibm.h"
 #include "wccfile.h"
 #include "wccmalloc.h"
@@ -1909,6 +1911,13 @@ void call_susan( struct wccFILE *inputFile, int mode )
 
 int main( void ) 
 {
+volatile _SPM unsigned int *cyc_ptr_low = (volatile _SPM unsigned int *) 0xF0020004;
+volatile _SPM unsigned int *cyc_ptr_high = (volatile _SPM unsigned int *) 0xF0020000;
+
+  unsigned long long cyc_ptr_low_saved = (unsigned long long)*cyc_ptr_low;
+  unsigned long long cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
+
+  unsigned long long start = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
   struct wccFILE file;
   file.data = input;
   file.size = 7292;
@@ -1920,6 +1929,11 @@ int main( void )
   wccfreeall();
   call_susan( &file, 2 );
   wccfreeall();
+  cyc_ptr_low_saved = (unsigned long long)*cyc_ptr_low;
+  cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
+
+  unsigned long long end = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
+printf("%llu %llu %llu\n", start, end, end-start);
   
   return 0;
 }

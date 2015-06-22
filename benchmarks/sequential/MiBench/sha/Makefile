@@ -11,12 +11,12 @@ CFLAGS?= -g -target patmos-unknown-unknown-elf -O2 \
 
 all: comp test
 
-comp: bitcount.elf
+comp: sha.elf
 
-bitcount.elf: *.c
-	patmos-clang $(CFLAGS) *.c -o bitcount.elf
+sha.elf: *.c
+	patmos-clang $(CFLAGS) *.c -o sha.elf
 
-test:
+test: comp
 	#pasim a.out
-	patmos-emulator bitcount.elf
-	../../../../../patmos/hardware/build/emulator bitcount.elf
+	patmos-emulator-2kbdmapwb sha.elf
+	../../../../../patmos/hardware/build/emulator sha.elf

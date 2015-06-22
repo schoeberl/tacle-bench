@@ -1,0 +1,9 @@
+#pasim a.out
+patmos-emulator-2kbdmapwb basicmath_small.elf
+4840 18740023 18735183
+../../../../../patmos/hardware/build/emulator basicmath_small.elf optimised
+4756 18739875 18735119
+non-optimised
+4777 18739980 18735203
+old scache + 2kb wb data cache
+4784 18605354 18600570

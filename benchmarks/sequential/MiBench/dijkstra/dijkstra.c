@@ -2,6 +2,8 @@
 
 #include "glibc_common.h"
 #include "input.h"
+#include <machine/spm.h>
+#include <stdio.h>
 
 #define NONE 9999
 #define OUT_OF_MEMORY -1
@@ -117,8 +119,17 @@ int dijkstra(int chStart, int chEnd)
   return 0;
 }
 
+static volatile _SPM unsigned int *cyc_ptr_low = (volatile _SPM unsigned int *) 0xF0020004;
+static volatile _SPM unsigned int *cyc_ptr_high = (volatile _SPM unsigned int *) 0xF0020000;
 int main()
 {
+//volatile _SPM unsigned int *cyc_ptr_low = (volatile _SPM unsigned int *) 0xF0020004;
+//volatile _SPM unsigned int *cyc_ptr_high = (volatile _SPM unsigned int *) 0xF0020000;
+
+  unsigned long long cyc_ptr_low_saved = (unsigned long long)*cyc_ptr_low;
+  unsigned long long cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
+
+  unsigned long long start = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
   int i,j;
 
   qHead = (void*)NULL;
@@ -130,6 +141,12 @@ int main()
       return OUT_OF_MEMORY;
     next_in = 0;
   }
+
+  cyc_ptr_low_saved = (unsigned long long)*cyc_ptr_low;
+  cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
+
+  unsigned long long end = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
+printf("%llu %llu %llu\n", start, end, end-start);
   
   return 0;
 }

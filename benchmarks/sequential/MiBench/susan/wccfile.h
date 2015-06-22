@@ -3,7 +3,7 @@
 
 enum _Origin_ { WCCSEEK_SET, WCCSEEK_CUR, WCCSEEK_END };
 typedef enum _Origin_ Origin;
-typedef unsigned int size_t;
+typedef unsigned long size_t;
 
 #define EOF -1
 
