@@ -10,3 +10,9 @@ patmos-emulator anagram.elf
 6358 3395715 3389357
 patmos-emulator-nodirty anagram.elf
 4988 2424730 2419742
+patmos-emulator-4kbwb
+5021 2418628 2413607
+patmos-emulator-4kbnowb anagram.elf
+6358 3374283 3367925
+patmos-emulator-nfopnowb anagram.elf
+6160 2555787 2549627

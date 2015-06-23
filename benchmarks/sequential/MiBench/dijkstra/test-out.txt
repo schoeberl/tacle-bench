@@ -10,3 +10,9 @@ patmos-emulator dijkstra.elf
 6174 79928459 79922285
 patmos-emulator-nodirty dijkstra.elf
 4797 64547246 64542449
+patmos-emulator-4kbwb dijkstra.elf
+4750 55588740 55583990
+patmos-emulator-4kbnowb dijkstra.elf
+6174 71218395 71212221
+patmos-emulator-nfopnowb dijkstra.elf
+5976 79928261 79922285

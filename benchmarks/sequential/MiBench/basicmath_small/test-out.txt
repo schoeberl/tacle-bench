@@ -10,3 +10,9 @@ patmos-emulator basicmath-small.elf
 6144 19313954 19307810
 patmos-emulator-nodirty basicmath-small.elf
 4771 18739908 18735137
+patmos-emulator-4kbwb basicmath-small.elf
+4797 18739969 18735172
+patmos-emulator-4kbnowb basicmath-small.elf
+6144 19313954 19307810
+patmos-emulator-nfopnowb basicmath-small.elf
+5951 18741021 18735070
