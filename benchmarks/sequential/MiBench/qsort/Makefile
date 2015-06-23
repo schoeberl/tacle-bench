@@ -1,4 +1,3 @@
-
 # Quick and dirty Makefile that assumes the benchmarks
 # are cloned at the same level as the patmos repository
 
@@ -16,18 +15,15 @@ CFLAGS2?=-g -target patmos-unknown-unknown-elf -O2 \
 
 all: comp test
 
-comp: dijkstra-scache.elf dijkstra.elf
+comp: qsort-scache.elf qsort.elf
 
-dijkstra.elf: *.c
-	patmos-clang $(CFLAGS) *.c -o dijkstra.elf
+qsort.elf: *.c
+	patmos-clang $(CFLAGS) *.c -o qsort.elf
 
-dijkstra-scache.elf: *.c
-	patmos-clang $(CFLAGS2) *.c -o dijkstra-scache.elf
+qsort-scache.elf: *.c
+	patmos-clang $(CFLAGS2) *.c -o qsort-scache.elf
 
 test: comp
 	#pasim a.out
-	patmos-emulator-2kbdmapwb dijkstra.elf
-	patmos-emulator-2kbdmapwbsc dijkstra-scache.elf
-	../../../../../patmos/hardware/build/emulator dijkstra.elf
-	patmos-emulator dijkstra-scache.elf
-	patmos-emulator dijkstra.elf
+	patmos-emulator-2kbdmapwb qsort.elf
+	../../../../../patmos/hardware/build/emulator qsort.elf

@@ -1,0 +1,6 @@
+*.elf
+*.swp
+*.swo
+*.out
+*.vcd
+*.s

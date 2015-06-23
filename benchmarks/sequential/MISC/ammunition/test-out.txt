@@ -1,0 +1,12 @@
+patmos-emulator-2kbdmapwb ammunition.elf
+4770 141239275 141234505
+patmos-emulator-2kbdmapwbsc ammunition-scache.elf
+4691 140284359 140279668
+../../../../../patmos/hardware/build/emulator ammunition.elf
+4678 141237064 141232386
+patmos-emulator ammunition-scache.elf
+5878 164572320 164566442
+patmos-emulator ammunition.elf
+6039 170355690 170349651
+patmos-emulator-nodirty ammunition.elf
+4693 141237347 141232654

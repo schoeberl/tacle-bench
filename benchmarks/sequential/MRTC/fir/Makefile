@@ -16,18 +16,17 @@ CFLAGS2?=-g -target patmos-unknown-unknown-elf -O2 \
 
 all: comp test
 
-comp: dijkstra-scache.elf dijkstra.elf
+comp: fir-scache.elf fir.elf
 
-dijkstra.elf: *.c
-	patmos-clang $(CFLAGS) *.c -o dijkstra.elf
+fir.elf: *.c
+	patmos-clang $(CFLAGS) *.c -o fir.elf
 
-dijkstra-scache.elf: *.c
-	patmos-clang $(CFLAGS2) *.c -o dijkstra-scache.elf
+fir-scache.elf: *.c
+	patmos-clang $(CFLAGS2) *.c -o fir-scache.elf
 
 test: comp
 	#pasim a.out
-	patmos-emulator-2kbdmapwb dijkstra.elf
-	patmos-emulator-2kbdmapwbsc dijkstra-scache.elf
-	../../../../../patmos/hardware/build/emulator dijkstra.elf
-	patmos-emulator dijkstra-scache.elf
-	patmos-emulator dijkstra.elf
+	patmos-emulator-2kbdmapwb fir.elf
+	patmos-emulator-2kbdmapwbsc fir-scache.elf
+	../../../../../patmos/hardware/build/emulator fir.elf
+	patmos-emulator fir-scache.elf

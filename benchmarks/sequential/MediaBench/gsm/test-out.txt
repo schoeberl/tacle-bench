@@ -1,0 +1,12 @@
+patmos-emulator-2kbdmapwb gsm.elf
+4945 7045243 7040298
+patmos-emulator-2kbdmapwbsc gsm-scache.elf
+4881 6410174 6405293
+../../../../../patmos/hardware/build/emulator gsm.elf
+4853 6420255 6415402
+patmos-emulator gsm-scache.elf
+6068 7123971 7117903
+patmos-emulator gsm.elf
+6233 8139821 8133588
+patmos-emulator-nodirty gsm.elf
+4868 6420473 6415605

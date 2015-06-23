@@ -1,0 +1,12 @@
+patmos-emulator-2kbdmapwb pm.elf
+4978 121696379 121691401
+patmos-emulator-2kbdmapwbsc pm-scache.elf
+4915 122731923 122727008
+../../../../../patmos/hardware/build/emulator pm.elf
+4886 121356737 121351851
+patmos-emulator pm-scache.elf
+6041 125160988 125154947
+patmos-emulator pm.elf
+6185 125928706 125922521
+patmos-emulator-nodirty pm.elf
+4901 121356824 121351923

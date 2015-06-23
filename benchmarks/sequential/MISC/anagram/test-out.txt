@@ -1,0 +1,12 @@
+patmos-emulator-2kbdmapwb anagram.elf
+5065 2459554 2454489
+patmos-emulator-2kbdmapwbsc anagram-scache.elf
+5009 2458984 2453975
+../../../../../patmos/hardware/build/emulator anagram.elf
+4973 2424628 2419655
+patmos-emulator anagram-scache.elf
+6196 3392699 3386503
+patmos-emulator anagram.elf
+6358 3395715 3389357
+patmos-emulator-nodirty anagram.elf
+4988 2424730 2419742

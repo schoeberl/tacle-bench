@@ -16,15 +16,18 @@ CFLAGS2?=-g -target patmos-unknown-unknown-elf -O2 \
 
 all: comp test
 
-comp: basicmath_small-scache.elf basicmath_small.elf
+comp: basicmath-small-scache.elf basicmath-small.elf
 
-basicmath_small.elf: *.c
-	patmos-clang $(CFLAGS) *.c -o basicmath_small.elf
+basicmath-small.elf: *.c
+	patmos-clang $(CFLAGS) *.c -o basicmath-small.elf
 
-basicmath_small-scache.elf: *.c
-	patmos-clang $(CFLAGS2) *.c -o basicmath_small-scache.elf
+basicmath-small-scache.elf: *.c
+	patmos-clang $(CFLAGS2) *.c -o basicmath-small-scache.elf
 
 test: comp
 	#pasim a.out
-	patmos-emulator-2kbdmapwb basicmath_small.elf
-	../../../../../patmos/hardware/build/emulator basicmath_small.elf
+	patmos-emulator-2kbdmapwb basicmath-small.elf
+	patmos-emulator-2kbdmapwbsc basicmath-small-scache.elf
+	../../../../../patmos/hardware/build/emulator basicmath-small.elf
+	patmos-emulator basicmath-small-scache.elf
+	patmos-emulator basicmath-small.elf
