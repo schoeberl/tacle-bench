@@ -13,10 +13,12 @@ def doit(s: String) = {
   val cmd = Seq("sh", "-c", "patmos-clang "+d+"/*.c -o "+d+"/a.out")
   cmd!
   // pasim prints results to stderr...
-  val run = Seq("sh", "-c", "pasim -v "+d+"/a.out 2>&1 >/dev/null")
+  val run = Seq("sh", "-c", "pasim -v "+d+"/a.out 2>tmp.txt >/dev/null")
   if (fileExists(d+"/a.out")) {
-   val tim = (run #| "grep Cycles:")!!
-
+    val tim = if (run.! == 0) "grep Cycles: tmp.txt"!! else "Crash:"
+    // following does not work when the simulator exits != 0
+    // val tim = (run #| "grep Cycles:")!!
+    
     println(tim.substring(0, tim.length-1)+" "+d)
   } else {
     ""
@@ -30,6 +32,7 @@ val lines = dirs.split("\\n")
 
 // Seq or List?
 val some = Seq(lines(0), lines(1), lines(2), lines(3), lines(4))
+val abc = Seq("benchmarks/sequential/MISC/codecs_dcodrle1-", "benchmarks/sequential/MISC/g721_encode-")
 
 lines.map{ dir => doit(dir) }
 
