@@ -25,6 +25,8 @@ anagram-scache.elf: *.c
 	patmos-clang $(CFLAGS2) *.c -o anagram-scache.elf
 
 test: comp
+	../../../../../patmos/hardware/build/paemu-2kwb-0ksc-2kmscdo anagram.elf
+	../../../../../patmos/hardware/build/paemu-2kwb-2ksc-0kmscdo anagram-scache.elf
 	#pasim a.out
 	patmos-emulator-2kbdmapwb anagram.elf
 	patmos-emulator-2kbdmapwbsc anagram-scache.elf
