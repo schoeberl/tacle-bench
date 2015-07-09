@@ -10,7 +10,7 @@ def fileExists(name: String) = Seq("test", "-f", name).! == 0
 def doit(s: String) = {
   val d = s.substring(0, s.length-1)
   // println(d)
-  val cmd = Seq("sh", "-c", "patmos-clang "+d+"/*.c -o "+d+"/a.out")
+  val cmd = Seq("sh", "-c", "patmos-clang -O2 "+d+"/*.c -o "+d+"/a.out")
   cmd!
   // pasim prints results to stderr...
   val run = Seq("sh", "-c", "pasim -v "+d+"/a.out 2>tmp.txt >/dev/null")
