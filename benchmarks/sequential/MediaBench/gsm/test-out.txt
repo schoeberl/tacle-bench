@@ -16,3 +16,7 @@ patmos-emulator-4kbnowb gsm.elf
 6225 7696045 7689820
 patmos-emulator-nfopnowb gsm.elf
 6040 6853486 6847446
+patmos-emulator-fopdirty gsm.elf
+4874 6420612 6415738
+patmos-emulator-fopnodirty gsm.elf
+4889 6420867 6415978

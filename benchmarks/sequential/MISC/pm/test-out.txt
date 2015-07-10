@@ -16,3 +16,7 @@ patmos-emulator-4kbnowb pm.elf
 6161 125603714 125597553
 patmos-emulator-nfopnowb pm.elf
 6012 123785726 123779714
+patmos-emulator-fopdirty pm.elf
+4907 121356870 121351963
+patmos-emulator-fopnodirty pm.elf
+4922 121356965 121352043

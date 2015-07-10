@@ -16,3 +16,7 @@ patmos-emulator-4kbnowb md5.elf
 6150 25964226 25958076
 patmos-emulator-nfopnowb md5.elf
 5980 19105960 19099980
+patmos-emulator-fopdirty md5.elf
+4813 19105017 19100204
+patmos-emulator-fopnodirty md5.elf
+4813 19105017 19100204

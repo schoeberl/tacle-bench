@@ -16,3 +16,7 @@ patmos-emulator-4kbnowb dijkstra.elf
 6174 71218395 71212221
 patmos-emulator-nfopnowb dijkstra.elf
 5976 79928261 79922285
+patmos-emulator-fopdirty dijkstra.elf
+4803 64547252 64542449
+patmos-emulator-fopnodirty dijkstra.elf
+4818 64547267 64542449

@@ -2,8 +2,8 @@
 
 #include "glibc_common.h"
 #include "input.h"
-#include <machine/spm.h>
 #include <stdio.h>
+#include"../../../include/patmos.h"
 
 #define NONE 9999
 #define OUT_OF_MEMORY -1
@@ -146,7 +146,7 @@ int main()
   cyc_ptr_high_saved = (unsigned long long)*cyc_ptr_high;
 
   unsigned long long end = cyc_ptr_low_saved | (cyc_ptr_high_saved<<32);
-printf("%llu %llu %llu\n", start, end, end-start);
+  printstats(start, end);
   
   return 0;
 }

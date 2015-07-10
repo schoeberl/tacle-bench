@@ -16,3 +16,7 @@ patmos-emulator-4kbnowb ammunition.elf
 6031 170355682 170349651
 patmos-emulator-nfopnowb ammunition.elf
 5866 142100106 142094240
+patmos-emulator-fopdirty ammunition.elf
+4699 141237540 141232841
+patmos-emulator-fopnodirty ammunition.elf
+4714 141237880 141233166

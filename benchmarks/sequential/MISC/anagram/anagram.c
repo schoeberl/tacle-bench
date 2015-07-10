@@ -139,7 +139,7 @@
 #include "wccctype.h"
 #include "wccmalloc.h"
 #include "wccstdlib.h"
-#include <machine/spm.h>
+#include "../../../include/patmos.h"
 
 #define DICTWORDS 2279
 extern char* achPhrase[3];
@@ -199,67 +199,6 @@ unsigned auGlobalFrequency[ALPHABET];
 char achByFrequency[ALPHABET];          /* for sorting */
 
 char * pchDictionary;               /* the dictionary is read here */
-
-
-void printchar( unsigned char c) {
-    volatile _SPM unsigned int *uart_rec = (volatile _SPM unsigned int *) 0xF0080004;
-    volatile _SPM unsigned int *uart_s = (volatile _SPM unsigned int *) 0xF0080000;
-
-    // wait for status ready
-    while( (*uart_s & 1) == 0 ) {}
-
-    *uart_rec = c;
-}
-
-
-void printstats(unsigned long long start, unsigned long long end) {
-    unsigned long long diff = end - start;
-    unsigned char buf[32] = {0};
-    int i = 0, j = 0;
-    buf[0] = start % 10;
-    while((start /= 10) != 0) {
-        i++;
-        buf[i] = start % 10;
-    }
-
-    for(j=i; j>-1; j--) {
-        printchar( '0' + buf[j] );
-        buf[j] = 0;
-    }
-    printchar(' ');
-
-    i = 0;
-    j = 0;
-
-    buf[0] = end % 10;
-    while((end /= 10) != 0) {
-        i++;
-        buf[i] = end % 10;
-    }
-
-    for(j=i; j>-1; j--) {
-        printchar( '0' + buf[j] );
-        buf[j] = 0;
-    }
-    printchar(' ');
-
-    i = 0;
-    j = 0;
-
-    buf[0] = diff % 10;
-    while((diff /= 10) != 0) {
-        i++;
-        buf[i] = diff % 10;
-    }
-
-    for(j=i; j>-1; j--) {
-        printchar( '0' + buf[j] );
-        buf[j] = 0;
-    }
-    printchar('\n');
-    
-
-}
 
 void Reset( void )
 {
