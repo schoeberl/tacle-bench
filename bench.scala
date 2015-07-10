@@ -18,7 +18,10 @@ import scala.language.postfixOps
 
 // Probably too many options...
 
-val CFLAGS_MIN = "-O2"
+val CFLAGS_MIN = "-g -target patmos-unknown-unknown-elf -O2 " +
+        "-mpatmos-disable-vliw " +
+        "-mpatmos-method-cache-size=4096 " + //-mpatmos-preferred-subfunction-size=0 " +
+        "-mpatmos-stack-base=0x200000 -mpatmos-shadow-stack-base=0x1ff000"
 
 // Partially a big difference between CFLAGS_MIN and CFLAGS
 // method cache numbers?
@@ -28,12 +31,12 @@ val CFLAGS_MIN = "-O2"
 val CFLAGS = "-g -target patmos-unknown-unknown-elf -O2 " +
         "-mpatmos-disable-stack-cache " +
         "-mpatmos-disable-vliw " +
-        "-mpatmos-method-cache-size=0x1000 -mpatmos-preferred-subfunction-size=0 " +
+        "-mpatmos-method-cache-size=4096 -mpatmos-preferred-subfunction-size=0 " +
         "-mpatmos-stack-base=0x200000 -mpatmos-shadow-stack-base=0x1ff000"
 
 val CFLAGS_SC = "-g -target patmos-unknown-unknown-elf -O2 " +
         "-mpatmos-disable-vliw " +
-        "-mpatmos-method-cache-size=0x1000 -mpatmos-preferred-subfunction-size=0 " +
+        "-mpatmos-method-cache-size=4096 -mpatmos-preferred-subfunction-size=0 " +
         "-mpatmos-stack-base=0x200000 -mpatmos-shadow-stack-base=0x1f8000 "
 
 
