@@ -25,6 +25,8 @@ basicmath-small-scache.elf: *.c
 	patmos-clang $(CFLAGS2) *.c -o basicmath-small-scache.elf
 
 test: comp
+	../../../../../patmos/hardware/build/paemu-2kwb-0ksc-2kmscdo basicmath-small.elf
+	../../../../../patmos/hardware/build/paemu-2kwb-2ksc-0kmscdo basicmath-small.elf
 	#pasim a.out
 	patmos-emulator-2kbdmapwb basicmath-small.elf
 	patmos-emulator-2kbdmapwbsc basicmath-small-scache.elf
