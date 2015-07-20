@@ -19,21 +19,21 @@ CFLAGS2?=-g -target patmos-unknown-unknown-elf -O2 \
 
 all: comp test
 
-comp: susan-scache.elf susan.elf
+comp: sqrt-scache.elf sqrt.elf
 
-susan.elf: *.c
-	patmos-clang $(CFLAGS) *.c -o susan.elf
+sqrt.elf: *.c
+	patmos-clang $(CFLAGS) *.c -o sqrt.elf
 
-susan-scache.elf: *.c
-	patmos-clang $(CFLAGS2) *.c -o susan-scache.elf
+sqrt-scache.elf: *.c
+	patmos-clang $(CFLAGS2) *.c -o sqrt-scache.elf
 
 test: comp
-	../../../../../patmos/install/bin/paemu-2kwb-0ksc-2kmsc susan.elf
-	../../../../../patmos/install/bin/paemu-2kwb-0ksc-2kmscd susan.elf
-	../../../../../patmos/install/bin/paemu-2kwb-0ksc-2kmscdo susan.elf
-	../../../../../patmos/install/bin/paemu-2kwb-2ksc-0kmscdo susan-scache.elf
-	../../../../../patmos/install/bin/paemu-2kwt-0ksc-2kmscdo susan.elf
-	../../../../../patmos/install/bin/paemu-2kwt-2ksc-0kmscdo susan-scache.elf
-	../../../../../patmos/install/bin/paemu-4kwb-0ksc-0kmscdo susan.elf
-	../../../../../patmos/install/bin/paemu-4kwt-0ksc-0kmscdo susan.elf
+	../../../../../patmos/install/bin/paemu-2kwb-0ksc-2kmsc sqrt.elf
+	../../../../../patmos/install/bin/paemu-2kwb-0ksc-2kmscd sqrt.elf
+	../../../../../patmos/install/bin/paemu-2kwb-0ksc-2kmscdo sqrt.elf
+	../../../../../patmos/install/bin/paemu-2kwb-2ksc-0kmscdo sqrt-scache.elf
+	../../../../../patmos/install/bin/paemu-2kwt-0ksc-2kmscdo sqrt.elf
+	../../../../../patmos/install/bin/paemu-2kwt-2ksc-0kmscdo sqrt-scache.elf
+	../../../../../patmos/install/bin/paemu-4kwb-0ksc-0kmscdo sqrt.elf
+	../../../../../patmos/install/bin/paemu-4kwt-0ksc-0kmscdo sqrt.elf
 	#pasim a.out

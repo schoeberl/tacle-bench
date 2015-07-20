@@ -34,6 +34,9 @@
 /*
 ** actually, we don't really need floating point here
 */
+
+#include "../../../include/patmos.h"
+
 #define float int
 
 static char     Bitlist[64];
@@ -1184,9 +1187,12 @@ void FH_DU(void)
 
 int main(void)
 {
+  start_count();
   init();
   interface();
   FH_DU();
+  end_count();
+  printstats(cyc_ptr_low_start, cyc_ptr_low_end);
 
   return 0;
 }

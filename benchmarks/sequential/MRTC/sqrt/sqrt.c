@@ -40,6 +40,8 @@
 /*                                                                       */
 /*************************************************************************/
 
+#include "../../../include/patmos.h"
+
 float myfabs(float n)
 {
   float f;
@@ -54,6 +56,7 @@ float myfabs(float n)
 
 float mysqrt(float val)
 {
+  start_count();
   float x = val/10;
   float dx;
   float diff;
@@ -90,6 +93,9 @@ int main(void)
   for ( i = 0; i < ( sizeof( v ) / sizeof( float ) ); i++ ) {
     mysqrt(v[i]);
   }
+
+  end_count();
+  printstats(cyc_ptr_low_start, cyc_ptr_low_end);
 
   return 0;
 }

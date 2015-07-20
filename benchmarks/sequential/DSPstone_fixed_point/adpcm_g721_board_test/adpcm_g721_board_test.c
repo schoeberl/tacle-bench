@@ -28,6 +28,7 @@
  */
 
 #include "g721.h"
+#include "../../../include/patmos.h"
 
 U16BIT Input[] =
 {
@@ -890,6 +891,7 @@ U16BIT decoder(U16BIT adpcm)
 
 int main(void)
 {
+  start_count();
   int i;
 
   reset_encoder();
@@ -898,6 +900,9 @@ int main(void)
   _Pragma("loopbound min 32 max 32")
   for (i = 0; i < sizeof(Input) / sizeof(U16BIT); i++)
     decoder(encoder(Input[i]));
+
+  end_count();
+  printstats(cyc_ptr_low_start, cyc_ptr_low_end);
 
   return 0;
 }

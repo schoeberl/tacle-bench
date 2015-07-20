@@ -18,7 +18,7 @@
 #endif
 
 typedef int FILE;
-typedef unsigned size_t;
+typedef unsigned long size_t;
 
 /*
  * First we include the configuration files that record how this

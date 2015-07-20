@@ -2,6 +2,18 @@
 #define PATMOS_TACLE_H_
 #include <machine/spm.h>
 
+volatile _SPM unsigned int *cyc_ptr_low = (volatile _SPM unsigned int *) 0xF0020004;
+unsigned long long cyc_ptr_low_start;
+unsigned long long cyc_ptr_low_end;
+
+void start_count() {
+    cyc_ptr_low_start = (unsigned long long)*cyc_ptr_low;
+}
+
+void end_count() {
+    cyc_ptr_low_end = (unsigned long long)*cyc_ptr_low;
+}
+
 void printchar( unsigned char c) {
     volatile _SPM unsigned int *uart_rec = (volatile _SPM unsigned int *) 0xF0080004;
     volatile _SPM unsigned int *uart_s = (volatile _SPM unsigned int *) 0xF0080000;

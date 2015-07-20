@@ -19,6 +19,7 @@
 
 
 // Common decls for cjpeg/djpeg applications
+#include "../../../include/patmos.h"
 #include "cdjpeg.h"
 
 #ifdef BMP_SUPPORTED
@@ -88,6 +89,7 @@ int putc_modified( int character )
 
 int main( void )
 {
+  start_count();
   int i;
 
   jpeg_dec.progress                = NULL;
@@ -103,6 +105,8 @@ int main( void )
   jpeg_dec.out_color_components    = 2;
   write_colormap(    &jpeg_dec, &bmp_dest, 768, 4, 1 );
  
+  end_count();
+  printstats(cyc_ptr_low_start, cyc_ptr_low_end);
   return 0;
 }
 

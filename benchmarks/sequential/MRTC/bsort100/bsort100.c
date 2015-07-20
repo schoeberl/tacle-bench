@@ -6,6 +6,9 @@
  */
 
 /* A read from this address will result in an known value of 1 */
+
+#include "../../../include/patmos.h"
+
 //#define KNOWN_VALUE (int)(*((char *)0x80200001))
 #define KNOWN_VALUE 1
 
@@ -32,9 +35,13 @@ int BubbleSort( int Array[] );
 
 int main( void )
 {
+  start_count();
   Initialize( Array );
   
   BubbleSort(Array);
+
+  end_count();
+  printstats(cyc_ptr_low_start, cyc_ptr_low_end);
   
   return 0;
 }

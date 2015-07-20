@@ -9,6 +9,7 @@ extern unsigned char input[419];
 
 #include "codecs_dcodhuff.h"
 #include "wccmalloc.h"
+#include "../../../include/patmos.h"
 
 /* Global variables */
 static unsigned char *source_memory_base;  /* Base of the source memory */
@@ -230,6 +231,9 @@ void huffmandecoding( unsigned char *input, unsigned int length )
 
 int main( void )
 {
+  start_count();
   huffmandecoding( input, 419 );
+  end_count();
+  printstats(cyc_ptr_low_start, cyc_ptr_low_end);
   return 0;
 }

@@ -26,6 +26,8 @@
  * arrays and simple arithmetic.
  */
 
+#include "../../../include/patmos.h"
+
 #define UPPERLIMIT 20
 
 typedef int matrix [UPPERLIMIT][UPPERLIMIT];
@@ -42,9 +44,13 @@ int RandomInteger( void );
 
 int main( void )
 {
+  start_count();
   InitSeed();
   
   Test(ArrayA, ArrayB, ResultArray);
+
+  end_count();
+  printstats(cyc_ptr_low_start, cyc_ptr_low_end);
 
   return 0;
 }

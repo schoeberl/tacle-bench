@@ -45,6 +45,8 @@
 /*                                                                       */
 /*************************************************************************/
 
+#include "../../../include/patmos.h"
+
 #define PI 3.14159f
 #define M_PI 3.14159f
 
@@ -113,6 +115,7 @@ static float cos(float rad)
 
 int main(void)
 {
+  start_count();
   int  i, n = 8, flag, chkerr;
   /* ar  */
   _Pragma("loopbound min 8 max 8")
@@ -128,6 +131,9 @@ int main(void)
   /* inverse fft */
   flag = 1;
   chkerr = fft1(n, flag);
+
+  end_count();
+  printstats(cyc_ptr_low_start, cyc_ptr_low_end);
 
   return 0;
 }
