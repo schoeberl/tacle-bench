@@ -18,40 +18,35 @@ import scala.language.postfixOps
 
 // Probably too many options...
 
-val CFLAGS_MIN = "-g -target patmos-unknown-unknown-elf -O2 " +
-        "-mpatmos-disable-vliw " +
-        "-mpatmos-method-cache-size=4096 " + //-mpatmos-preferred-subfunction-size=0 " +
-        "-mpatmos-stack-base=0x200000 -mpatmos-shadow-stack-base=0x1ff000"
-
-// Partially a big difference between CFLAGS_MIN and CFLAGS
-// method cache numbers?
-// sqrt is 2 times faster with CFLAGS
-// statemate is 2 times faster with CFLAGS_MIN
-
 val CFLAGS = "-g -target patmos-unknown-unknown-elf -O2 " +
         "-mpatmos-disable-stack-cache " +
         "-mpatmos-disable-vliw " +
-        "-mpatmos-method-cache-size=4096 -mpatmos-preferred-subfunction-size=0 " +
-        "-mpatmos-stack-base=0x200000 -mpatmos-shadow-stack-base=0x1ff000"
+        "-mpatmos-method-cache-size=4096 " + // -mpatmos-preferred-subfunction-size=0 " +
+        "-mpatmos-stack-base=0x200000 -mpatmos-shadow-stack-base=0x1f8000"
 
 val CFLAGS_SC = "-g -target patmos-unknown-unknown-elf -O2 " +
         "-mpatmos-disable-vliw " +
-        "-mpatmos-method-cache-size=4096 -mpatmos-preferred-subfunction-size=0 " +
+        "-mpatmos-method-cache-size=4096 " + // -mpatmos-preferred-subfunction-size=0 " +
         "-mpatmos-stack-base=0x200000 -mpatmos-shadow-stack-base=0x1f8000 "
 
-
+        /*
+         * paemu-2kwb-0ksc-2kmsc    paemu-2kwb-2ksc-0kmscdo  paemu-4kwb-0ksc-0kmscdo
+paemu-2kwb-0ksc-2kmscd   paemu-2kwt-0ksc-2kmscdo  paemu-4kwt-0ksc-0kmscdo
+paemu-2kwb-0ksc-2kmscdo  paemu-2kwt-2ksc-0kmscdo
+         */
+val EMU = "../patmos/hardware/build/paemu-2kwb-0ksc-2kmsc"
 
 val selection = Seq(
 "benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_board_test1",
 "benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_verify1",
 // "benchmarks/sequential/DSPstone_floating_point/matrix1_float1",
 "benchmarks/sequential/MISC/codecs_dcodhuff1",
-"benchmarks/sequential/MRTC/bsort1001",
-"benchmarks/sequential/MRTC/fft11",
-"benchmarks/sequential/MRTC/matmult1",
-"benchmarks/sequential/MRTC/prime1",
-"benchmarks/sequential/MRTC/sqrt1",
-"benchmarks/sequential/MRTC/statemate1",
+//"benchmarks/sequential/MRTC/bsort1001",
+//"benchmarks/sequential/MRTC/fft11",
+//"benchmarks/sequential/MRTC/matmult1",
+//"benchmarks/sequential/MRTC/prime1",
+//"benchmarks/sequential/MRTC/sqrt1",
+//"benchmarks/sequential/MRTC/statemate1",
 "benchmarks/sequential/MediaBench/cjpeg_jpeg6b_wrbmp1"
 )
 
@@ -60,11 +55,19 @@ val dirs = "ls -R benchmarks/sequential" #| "grep :"!!
 
 def fileExists(name: String) = Seq("test", "-f", name).! == 0
 
-def doit(s: String, cflags: String) = {
+// just compile a benchmark
+def compile(s: String, cflags: String) = {
   val d = s.substring(0, s.length-1)
-  // println(d)
   val cmd = Seq("sh", "-c", "patmos-clang "+cflags+" "+d+"/*.c -o "+d+"/a.out")
   cmd!
+  
+}
+
+// compile and run in the simulator
+def doit(s: String, cflags: String) = {
+  
+  compile(s, cflags)
+  val d = s.substring(0, s.length-1)
   // pasim prints results to stderr...
   val run = Seq("sh", "-c", "pasim -v "+d+"/a.out 2>tmp.txt >/dev/null")
   if (fileExists(d+"/a.out")) {
@@ -86,6 +89,15 @@ def doit(s: String, cflags: String) = {
   }
 }
 
+def runEmu(s: String, e: String) = {
+  val d = s.substring(0, s.length-1)
+  val run = Seq("sh", "-c", e+" -p "+d+"/a.out")
+  val res: String = run.!!
+  val p1 = res.indexOf(":")
+  val p2 = res.indexOf("\n")
+  val cycles = res.substring(p1+1, p2).trim.toInt
+  println(cycles+" "+d)
+}
 
 val lines = dirs.split("\\n")
 
@@ -94,10 +106,18 @@ val some = Seq(lines(0), lines(1), lines(2), lines(3), lines(4))
 val abc = Seq("benchmarks/sequential/MISC/codecs_dcodrle1:", "benchmarks/sequential/MISC/g721_encode:")
 val mrtc = Seq("benchmarks/sequential/MRTC/adpcm_encoder:", "benchmarks/sequential/MRTC/binarysearch:")
 
-println("CFLAGS_MIN:")
-selection.map{ d => doit(d, CFLAGS_MIN) }
-println("CFLAGS:")
-selection.map{ d => doit(d, CFLAGS) }
-println("CFLAGS_SC:")
-selection.map{ d => doit(d, CFLAGS_SC) }
+// run all benchmarks (and maybe select the output to restrict to useful cycles
+// println("CFLAGS:")
+// lines.map{ d => doit(d, CFLAGS) }
+
+// run a selection
+//println("CFLAGS:")
+//selection.map{ d => doit(d, CFLAGS) }
+//println("CFLAGS_SC:")
+//selection.map{ d => doit(d, CFLAGS_SC) }
+
+// compile
+selection.map{ d => compile(d, CFLAGS)}
+// run emulator
+selection.map{ d => runEmu(d, EMU)}
 
