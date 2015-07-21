@@ -1,6 +1,8 @@
 #ifndef PATMOS_TACLE_H_
 #define PATMOS_TACLE_H_
-#include <machine/spm.h>
+//#include <machine/spm.h>
+
+#define _SPM __attribute__((address_space(1)))
 
 volatile _SPM unsigned int *cyc_ptr_low = (volatile _SPM unsigned int *) 0xF0020004;
 unsigned long long cyc_ptr_low_start;
