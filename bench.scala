@@ -43,19 +43,65 @@ val EMU5 = "../patmos/hardware/build/paemu-2kwb-0ksc-2kmsc"
 val PATSC = "../patmos/hardware/build/paemu-2kwb-2ksc-0kmscdo"
 
 val selection = Seq(
-"benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_board_test1",
-"benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_verify1",
-"benchmarks/sequential/DSPstone_floating_point/matrix1_float1",
-// "benchmarks/sequential/MISC/codecs_dcodhuff1", - broken with SC optimization
-"benchmarks/sequential/MRTC/bsort1001",
-"benchmarks/sequential/MRTC/fft11",
-"benchmarks/sequential/MRTC/matmult1",
-"benchmarks/sequential/MRTC/prime1",
-"benchmarks/sequential/MRTC/sqrt1",
-"benchmarks/sequential/MRTC/statemate1",
-"benchmarks/sequential/MediaBench/cjpeg_jpeg6b_wrbmp1"
+// 100000 - 1000000
+//"benchmarks/sequential/MiBench/bitcount1"
+//"benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_board_test1",
+//"benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_verify1",
+//"benchmarks/sequential/DSPstone_floating_point/matrix1_float1",
+//// "benchmarks/sequential/MISC/codecs_dcodhuff1", - broken with SC optimization
+//"benchmarks/sequential/MRTC/bsort1001",
+//"benchmarks/sequential/MRTC/fft11",
+//"benchmarks/sequential/MRTC/matmult1",
+//"benchmarks/sequential/MRTC/prime1",
+//"benchmarks/sequential/MRTC/sqrt1",
+//"benchmarks/sequential/MRTC/statemate1",
+//"benchmarks/sequential/MediaBench/cjpeg_jpeg6b_wrbmp1"
+// 10000 - 1000000
+"benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_board_test:",
+"benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_verify:",
+"benchmarks/sequential/DSPstone_fixed_point/fft_16_13:",
+"benchmarks/sequential/DSPstone_fixed_point/fft_16_7:",
+"benchmarks/sequential/DSPstone_fixed_point/fir2dim_fixed:",
+"benchmarks/sequential/DSPstone_fixed_point/matrix1_fixed:",
+"benchmarks/sequential/DSPstone_fixed_point/n_complex_updates_fixed:",
+"benchmarks/sequential/DSPstone_fixed_point/startup_fixed:",
+// "benchmarks/sequential/DSPstone_floating_point/convolution_float:",
+"benchmarks/sequential/DSPstone_floating_point/fir2dim_float:",
+"benchmarks/sequential/DSPstone_floating_point/fir_float:",
+"benchmarks/sequential/DSPstone_floating_point/iir_biquad_N_sections_float:",
+"benchmarks/sequential/DSPstone_floating_point/lms_float:",
+"benchmarks/sequential/DSPstone_floating_point/matrix1_float:",
+"benchmarks/sequential/DSPstone_floating_point/matrix1x3_float:",
+"benchmarks/sequential/DSPstone_floating_point/n_complex_updates_float:",
+"benchmarks/sequential/DSPstone_floating_point/n_real_updates_float:",
+"benchmarks/sequential/MISC/codecs_codrle1:",
+// "benchmarks/sequential/MISC/codecs_dcodhuff:", broken
+"benchmarks/sequential/MISC/codecs_dcodrle1:",
+"benchmarks/sequential/MRTC/bsort100:",
+"benchmarks/sequential/MRTC/countnegative:",
+//"benchmarks/sequential/MRTC/cover:",
+"benchmarks/sequential/MRTC/crc:",
+"benchmarks/sequential/MRTC/duff:",
+"benchmarks/sequential/MRTC/edn:",
+// "benchmarks/sequential/MRTC/fdct:",
+"benchmarks/sequential/MRTC/fft1:",
+"benchmarks/sequential/MRTC/fir:",
+"benchmarks/sequential/MRTC/jfdctint:",
+"benchmarks/sequential/MRTC/ludcmp:",
+"benchmarks/sequential/MRTC/matmult:",
+"benchmarks/sequential/MRTC/minver:",
+"benchmarks/sequential/MRTC/ndes:",
+// "benchmarks/sequential/MRTC/petrinet:",
+"benchmarks/sequential/MRTC/prime:",
+"benchmarks/sequential/MRTC/qurt:",
+"benchmarks/sequential/MRTC/select:",
+"benchmarks/sequential/MRTC/sqrt:",
+"benchmarks/sequential/MRTC/statemate:",
+"benchmarks/sequential/MediaBench/cjpeg_jpeg6b_wrbmp:",
+"benchmarks/sequential/MediaBench/h264dec_ldecode_block:",
+"benchmarks/sequential/MiBench/bitcount:",
+"benchmarks/sequential/StreamIt/bitonic:"
 )
-
 
 val dirs = "ls -R benchmarks/sequential" #| "grep :"!!
 
@@ -87,9 +133,9 @@ def doit(s: String, cflags: String) = {
       else 0
     // following does not work when the simulator exits != 0
     // val tim = (run #| "grep Cycles:")!!
-    // if (cycles > 100000 && cycles < 1000000) {
+    if (cycles > 10000 && cycles < 1000000) {
       println(result+" "+d)
-    // }
+    }
   } else {
     ""
   }
@@ -113,7 +159,6 @@ val abc = Seq("benchmarks/sequential/MISC/codecs_dcodrle1:", "benchmarks/sequent
 val mrtc = Seq("benchmarks/sequential/MRTC/adpcm_encoder:", "benchmarks/sequential/MRTC/binarysearch:")
 
 // run all benchmarks (and maybe select the output to restrict to useful cycles
-// println("CFLAGS:")
 // lines.map{ d => doit(d, CFLAGS) }
 
 // run a selection
@@ -122,9 +167,9 @@ val mrtc = Seq("benchmarks/sequential/MRTC/adpcm_encoder:", "benchmarks/sequenti
 //println("CFLAGS_SC:")
 //selection.map{ d => doit(d, CFLAGS_SC) }
 
-// compile
+//// compile
 selection.map{ d => compile(d, CFLAGS)}
-// run emulator
+//// run emulator
 println(EMU1)
 selection.map{ d => runEmu(d, EMU1)}
 println(EMU2)
