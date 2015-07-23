@@ -34,19 +34,25 @@ val CFLAGS_SC = "-g -target patmos-unknown-unknown-elf -O2 " +
 paemu-2kwb-0ksc-2kmscd   paemu-2kwt-0ksc-2kmscdo  paemu-4kwt-0ksc-0kmscdo
 paemu-2kwb-0ksc-2kmscdo  paemu-2kwt-2ksc-0kmscdo
          */
-val EMU = "../patmos/hardware/build/paemu-2kwb-0ksc-2kmsc"
+val EMU1 = "../patmos/hardware/build/paemu-4kwt-0ksc-0kmscdo"
+val EMU2 = "../patmos/hardware/build/paemu-4kwb-0ksc-0kmscdo"
+val EMU3 = "../patmos/hardware/build/paemu-2kwt-0ksc-2kmscdo"
+val EMU4 = "../patmos/hardware/build/paemu-2kwb-0ksc-2kmscdo"
+val EMU5 = "../patmos/hardware/build/paemu-2kwb-0ksc-2kmsc"
+
+val PATSC = "../patmos/hardware/build/paemu-2kwb-2ksc-0kmscdo"
 
 val selection = Seq(
 "benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_board_test1",
 "benchmarks/sequential/DSPstone_fixed_point/adpcm_g721_verify1",
-// "benchmarks/sequential/DSPstone_floating_point/matrix1_float1",
-"benchmarks/sequential/MISC/codecs_dcodhuff1",
-//"benchmarks/sequential/MRTC/bsort1001",
-//"benchmarks/sequential/MRTC/fft11",
-//"benchmarks/sequential/MRTC/matmult1",
-//"benchmarks/sequential/MRTC/prime1",
-//"benchmarks/sequential/MRTC/sqrt1",
-//"benchmarks/sequential/MRTC/statemate1",
+"benchmarks/sequential/DSPstone_floating_point/matrix1_float1",
+// "benchmarks/sequential/MISC/codecs_dcodhuff1", - broken with SC optimization
+"benchmarks/sequential/MRTC/bsort1001",
+"benchmarks/sequential/MRTC/fft11",
+"benchmarks/sequential/MRTC/matmult1",
+"benchmarks/sequential/MRTC/prime1",
+"benchmarks/sequential/MRTC/sqrt1",
+"benchmarks/sequential/MRTC/statemate1",
 "benchmarks/sequential/MediaBench/cjpeg_jpeg6b_wrbmp1"
 )
 
@@ -119,5 +125,19 @@ val mrtc = Seq("benchmarks/sequential/MRTC/adpcm_encoder:", "benchmarks/sequenti
 // compile
 selection.map{ d => compile(d, CFLAGS)}
 // run emulator
-selection.map{ d => runEmu(d, EMU)}
+println(EMU1)
+selection.map{ d => runEmu(d, EMU1)}
+println(EMU2)
+selection.map{ d => runEmu(d, EMU2)}
+println(EMU3)
+selection.map{ d => runEmu(d, EMU3)}
+println(EMU4)
+selection.map{ d => runEmu(d, EMU4)}
+println(EMU5)
+selection.map{ d => runEmu(d, EMU5)}
 
+// compile
+selection.map{ d => compile(d, CFLAGS_SC)}
+// run emulator
+println(PATSC)
+selection.map{ d => runEmu(d, PATSC)}
